@@ -1,0 +1,150 @@
+/* === Global === */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fc;
+    color: #333;
+  }
+  
+  h1, h2, h3, h4, h5 {
+    font-weight: 700;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  /* === Navbar === */
+  .navbar {
+    background: linear-gradient(90deg, #5b86e5, #36d1dc);
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  
+  .navbar-nav .nav-link {
+    color: #ffffff !important;
+    font-weight: 500;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #ffd700 !important;
+  }
+  
+  /* === Card Enhancements === */
+  .card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .card:hover {
+    background: linear-gradient(90deg, #5b86e5, #36d1dc);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* === Buttons === */
+  .btn-primary {
+    background-color: #4a47a3;
+    border-color: #4a47a3;
+  }
+  
+  .btn-primary:hover {
+    background-color: #37348f;
+  }
+  
+  .btn-success {
+    background-color: #00b894;
+  }
+  
+  .btn-success:hover {
+    background-color: #019875;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #4a47a3;
+    color: #fff;
+  }
+  
+  /* === Footer === */
+  footer {
+    background: #343a40;
+    color: #ccc;
+  }
+  
+  footer a {
+    color: #aaa;
+  }
+  
+  footer a:hover {
+    color: #fff;
+  }
+  
+  /* === Chat Input === */
+  .chat-window {
+    background-color: #eaf0f7;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  
+  .chat-window p {
+    margin: 0;
+    color: #555;
+  }
+  
+  /* === Leaderboard Table === */
+  .table thead th {
+    background-color: #6c63ff;
+    color: white;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* === Section Titles === */
+  section h2 {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+  }
+  
+  section h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: #36d1dc;
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+
+
+
+  /* Add to your style.css */
+
+.scrolling-images-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.scrolling-images {
+  display: flex;
+  animation: scroll 20s linear infinite; /* Adjust speed here */
+  white-space: nowrap; /* Prevent wrapping */
+}
+
+.scrolling-images img {
+  height: 200px; /* Adjust height as needed */
+  margin: 0 10px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  display: inline-block; /* Essential for smooth animation */
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* Move half the width for seamless loop */
+}

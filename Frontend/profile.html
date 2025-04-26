@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - KrishiMitra</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .profile-section {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .profile-image-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+        }
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #28a745;
+        }
+        .profile-image-upload {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: #28a745;
+            color: white;
+            border-radius: 50%;
+            padding: 8px;
+            cursor: pointer;
+        }
+        .section-title {
+            color: #28a745;
+            border-bottom: 2px solid #28a745;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">KrishiMitra</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="crops.html">Crops & Practices</a></li>
+                    <li class="nav-item"><a class="nav-link" href="farm-management.html">Farm Management</a></li>
+                    <li class="nav-item"><a class="nav-link" href="market-connect.html">Market Connect</a></li>
+                    <li class="nav-item"><a class="nav-link" href="agri-advisor.html">Agri-Advisor</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <img src="farmer_profile.jpg" alt="Profile" class="rounded-circle me-2" width="30" height="30" id="userProfileImage"/>
+                            <span id="userName">Loading...</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="profile.html"><i class="bi bi-person me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="help.html"><i class="bi bi-question-circle me-2"></i>Help</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Content -->
+    <div class="container py-5">
+        <div class="row">
+            <!-- Left Column - Profile Image and Basic Info -->
+            <div class="col-md-4">
+                <div class="profile-section text-center">
+                    <div class="profile-image-container">
+                        <img id="profileImage" src="farmer_profile.jpg" alt="Profile" class="profile-image">
+                        <label for="profileImageInput" class="profile-image-upload">
+                            <i class="bi bi-camera"></i>
+                        </label>
+                        <input type="file" id="profileImageInput" accept="image/*" style="display: none;">
+                    </div>
+                    <h4 id="profileName" class="mt-3 mb-1">Loading...</h4>
+                    <p id="userRole" class="text-muted mb-4">Farmer</p>
+                </div>
+            </div>
+
+            <!-- Right Column - Profile Details and Password Change -->
+            <div class="col-md-8">
+                <!-- Profile Information Section -->
+                <div class="profile-section">
+                    <h4 class="section-title">Profile Information</h4>
+                    <form id="profileForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" id="usernameInput" readonly>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" id="emailInput">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phoneInput">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Address</label>
+                                <textarea class="form-control" id="addressInput" rows="1"></textarea>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <button type="button" class="btn btn-success" onclick="saveChanges()">
+                                <i class="bi bi-save me-2"></i>Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Change Password Section -->
+                <div class="profile-section">
+                    <h4 class="section-title">Change Password</h4>
+                    <form id="passwordForm">
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Current Password</label>
+                                <input type="password" class="form-control" id="currentPassword">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">New Password</label>
+                                <input type="password" class="form-control" id="newPassword">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Confirm New Password</label>
+                                <input type="password" class="form-control" id="confirmPassword">
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <button type="button" class="btn btn-success" onclick="changePassword()">
+                                <i class="bi bi-key me-2"></i>Change Password
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        /**
+         * Authentication and User Session Management
+         * ----------------------------------------
+         * These functions handle user authentication and session management
+         */
+
+        /**
+         * Checks if the user is logged in and loads their data
+         * - Retrieves user data from localStorage
+         * - Redirects to login page if no user data found
+         * - Loads user data into the profile page if authenticated
+         */
+        function checkAuth() {
+            const userData = localStorage.getItem('user');
+            if (!userData) {
+                window.location.href = 'Login.html';
+                return;
+            }
+            
+            const user = JSON.parse(userData);
+            loadUserData(user);
+        }
+
+        /**
+         * Loads user data into the profile form
+         * - Updates all form fields with user data
+         * - Handles profile image display
+         * - Sets default values for empty fields
+         * @param {Object} user - The user object containing profile data
+         */
+        function loadUserData(user) {
+            // Update navigation bar user info
+            document.getElementById('userName').textContent = user.username;
+            
+            // Update profile section user info
+            document.getElementById('profileName').textContent = user.username;
+            document.getElementById('usernameInput').value = user.username;
+            
+            // Update contact information
+            document.getElementById('emailInput').value = user.email || '';
+            document.getElementById('phoneInput').value = user.phone || '';
+            document.getElementById('addressInput').value = user.address || '';
+            
+            // Update profile images if available
+            if (user.profile_image) {
+                document.getElementById('userProfileImage').src = user.profile_image;
+                document.getElementById('profileImage').src = user.profile_image;
+            }
+        }
+
+        /**
+         * Profile Image Management
+         * -----------------------
+         * Handles profile image upload and preview
+         */
+
+        /**
+         * Event listener for profile image upload
+         * - Converts uploaded image to base64
+         * - Updates both profile images (navbar and profile page)
+         * - Provides immediate visual feedback
+         */
+        document.getElementById('profileImageInput').addEventListener('change', async function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profileImage').src = e.target.result;
+                    document.getElementById('userProfileImage').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        /**
+         * Profile Update Functionality
+         * ---------------------------
+         * Handles saving profile changes to the server
+         */
+
+        /**
+         * Saves profile changes to the server
+         * - Collects updated profile data from form
+         * - Sends PUT request to update user profile
+         * - Updates localStorage with new data
+         * - Provides feedback on success/failure
+         */
+        async function saveChanges() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const updatedData = {
+                email: document.getElementById('emailInput').value,
+                phone: document.getElementById('phoneInput').value,
+                address: document.getElementById('addressInput').value,
+                profile_image: document.getElementById('profileImage').src
+            };
+
+            try {
+                const response = await fetch(`http://localhost:3000/api/users/${user.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updatedData)
+                });
+
+                if (response.ok) {
+                    // Update local storage with new data
+                    const updatedUser = { ...user, ...updatedData };
+                    localStorage.setItem('user', JSON.stringify(updatedUser));
+                    alert('Profile updated successfully!');
+                } else {
+                    alert('Failed to update profile. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to update profile. Please try again.');
+            }
+        }
+
+        /**
+         * Password Change Functionality
+         * ----------------------------
+         * Handles password change process with validation and error handling
+         */
+
+        /**
+         * Changes the user's password
+         * - Validates all password fields
+         * - Checks password requirements
+         * - Sends request to update password
+         * - Handles success and error cases
+         */
+        async function changePassword() {
+            // Get password values from form
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Clear any previous error messages
+            document.querySelectorAll('.error-message').forEach(el => el.remove());
+
+            // Validate all fields are filled
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                showError('Please fill in all password fields');
+                return;
+            }
+
+            // Validate new passwords match
+            if (newPassword !== confirmPassword) {
+                showError('New passwords do not match!');
+                return;
+            }
+
+            // Validate password length
+            if (newPassword.length < 8) {
+                showError('New password must be at least 8 characters long');
+                return;
+            }
+
+            // Get user data and validate session
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user || !user.id) {
+                showError('User session expired. Please login again.');
+                setTimeout(() => {
+                    window.location.href = 'Login.html';
+                }, 2000);
+                return;
+            }
+
+            try {
+                // Send password change request to server
+                const response = await fetch(`http://localhost:3000/api/users/${user.id}/change-password`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        currentPassword,
+                        newPassword
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // Show success message
+                    const successDiv = document.createElement('div');
+                    successDiv.className = 'alert alert-success mt-3';
+                    successDiv.textContent = 'Password changed successfully!';
+                    document.getElementById('passwordForm').appendChild(successDiv);
+                    
+                    // Reset form
+                    document.getElementById('passwordForm').reset();
+                    
+                    // Remove success message after 3 seconds
+                    setTimeout(() => {
+                        successDiv.remove();
+                    }, 3000);
+                } else {
+                    showError(result.error || 'Failed to change password. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Failed to connect to server. Please try again later.');
+            }
+        }
+
+        /**
+         * Helper Functions
+         * ---------------
+         * Utility functions for common operations
+         */
+
+        /**
+         * Displays error messages in the form
+         * - Removes any existing error messages
+         * - Creates and displays new error message
+         * - Uses Bootstrap alert styling
+         * @param {string} message - The error message to display
+         */
+        function showError(message) {
+            // Remove any existing error messages
+            document.querySelectorAll('.error-message').forEach(el => el.remove());
+            
+            // Create and show new error message
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'alert alert-danger error-message mt-3';
+            errorDiv.textContent = message;
+            document.getElementById('passwordForm').appendChild(errorDiv);
+        }
+
+        /**
+         * Logs out the user
+         * - Removes user data from localStorage
+         * - Redirects to login page
+         */
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.href = 'Login.html';
+        }
+
+        // Initialize the page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', checkAuth);
+    </script>
+</body>
+</html> 
